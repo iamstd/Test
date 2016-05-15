@@ -1,2 +1,2 @@
-var box="lee";
+var box='lee';
 console.log(box);

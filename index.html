@@ -1,9 +1,86 @@
+<!DOCTYPE html>
 <html>
 	<head>	
-		<script></script>
-		<link />
+		<script src="http://cdn.bootcss.com/react/15.0.2/react.min.js"></script>
+		<script src="http://cdn.bootcss.com/react/0.14.7/react-dom.min.js"></script>
+		<script src="http://cdn.bootcss.com/babel-core/5.8.24/browser.min.js"></script>
+		<script src="http://cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>
+		<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" />
+		<style type="text/css">
+			input{
+				border-width:0 0 5px 0;
+				border-color:#666;
+				
+				outline:none;
+				}
+			
+			a{
+				width: 50px;
+				height: 20px;
+				margin: 0 10px;
+			}	
+		</style>
 	</head>
 	<body>
-		<input value="this is a bug"/>	
+		<script type="text/babel">	
+			
+			var Box=React.createClass({
+				getInitialState(){
+					return {
+						value:'iamstd'
+					}
+				},
+				render(){
+					return <div>
+						<input defaultValue={this.state.value} />
+							<a href="#" className="glyphicon glyphicon-remove"></a>
+							<a href="#" className="glyphicon glyphicon-ok"></a>
+										
+					</div>
+				}
+			});
+			var NotesList = React.createClass({
+				getInitialState(){
+					return {
+						inputList:new Set(),
+						textList:new Set(),
+						id:'ee',
+						context:'context'
+					}
+				},
+				handleClick:function(){
+					this.state.inputList.add(<Box/>);
+					this.forceUpdate();
+				},
+  			render:function() {
+  				var inputBox=[];
+  				var textBox=[];	
+				for(let item of this.state.inputList){
+					inputBox.push(<Box/>);
+				}
+    		return <div>
+    				<button className="btn btn-success" onClick={this.handleClick}>Add Button</button>
+    				<div>
+    				<p>{this.state.id}</p>
+    				<p>{inputBox}</p>
+    				</div>
+    			</div>
+    		      }
+    	   
+			});
+
+ReactDOM.render(
+  <NotesList/>,
+   
+  document.getElementById('add')
+);
+ 		</script>
+		
+		
+		<div id="add">
+			
+		</div>
+		
+		
 	</body>
 </html>

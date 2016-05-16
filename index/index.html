@@ -6,65 +6,147 @@
 		<script src="http://cdn.bootcss.com/react/0.14.7/react-dom.min.js"></script>
 		<script src="http://cdn.bootcss.com/babel-core/5.8.24/browser.min.js"></script>
 		<script src="http://cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>
-		<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
 		<style type="text/css">
+			.center, .control_num, .title{
+				text-align: center;	
+			}
+			.component_app{
+				width: 300px;
+				height: 300px;
+				border: 1px solid #cccccc;
+			}
+			.title{
+				margin-top: 20px;
+				color: #ff6699;
+				font-size: 3 rem;
+				font-family: arial;
+				font-weight: bolder;
+			}
+			hr{
+				border:1px solid #ff3366 ;
+			}
 			input{
 				border-width:0 0 2px 0;
 				border-color:#666;
 				outline:none;
+				margin: 10px 20px;
+				text-align: center;
+				color: #ff6699;
 				}
 			
-			a{
-				width: 50px;
-				height: 20px;
+			span{
 				margin: 0 10px;
+			}
+			.control{
+				margin: 5px auto;
+				color: #333333;
+				text-align: center;
 			}	
+			.control_num{
+				display: inline-block;
+				background: #333;
+				color: #fff;
+				width: 20px;
+			}
 		</style>
 	</head>
 	<body>
 		<script type="text/babel">	
-			var Box=React.createClass({
+			//设置TextList
+			var TextList=React.createClass({
 				getInitialState(){
 					return {
 						value:'iamstd'
 					}
 				},
+				remove(){
+					this.props.onClick(this.props.id);
+				},
+				add(){
+					this.props.onadd();
+				},
 				render(){
 					return <div>
 						<input defaultValue={this.state.value} />
-							<a href="#" className="glyphicon glyphicon-remove"></a>
-							<a href="#" className="glyphicon glyphicon-ok"></a>			
+							<span href="#" className="glyphicon glyphicon-remove" onClick={this.remove}></span>
+							<span href="#" className="glyphicon glyphicon-ok" onClick={this.add}></span>			
 					</div>
 				}
 			});
+			//设置InputList
+			var InputList=React.createClass({
+				getInitialState(){
+					return {
+						value:'iamstd'
+					}
+				},
+				remove(){
+					this.props.onClick(this.props.id);
+				},
+				add(){
+					this.props.onadd();
+				},
+				render(){
+					return <div>
+						<input defaultValue={this.state.value} />
+							<span href="#" className="glyphicon glyphicon-remove" onClick={this.remove}></span>
+							<span href="#" className="glyphicon glyphicon-ok" onClick={this.add}></span>			
+					</div>
+				}
+			});
+			//父组件返回HTML中挂载
 			var NotesList = React.createClass({
 				getInitialState(){
 					return {
-						inputList:new Set(),
-						textList:new Set(),
+						inputList:new Map(),
+						textList:new Map(),
 						id:0,
 						context:'context',
 						n:0
 					}
 				},
-				handleClick:function(){
+				onRemove(id){
+					this.state.inputList.delete(id);
 					this.setState({
-						id:++this.state.id,
-						inputList:this.state.inputList.add(<Box/>)
-					})
+						id:--this.state.id,
+					});
+					this.forceUpdate();
+				
+				},
+				onadd(id){
+					
+				},
+				handleClick:function(){
+				
+					let key=++this.state.id;
+					this.state.inputList=this.state.inputList.set(key,<InputList />)
+					this.forceUpdate();
+				},
+				componentDidMount(){
+					
 				},
   			render:function() {
+  				
   				var inputBox=[];
   				var textBox=[];	
 				for(let item of this.state.inputList){
-					inputBox.push(<Box/>);
+					inputBox.push(<InputList id={item[0]} key={item[0]} onClick={this.onRemove} onadd={this.handleClick}/>);
+				}
+				for(let item of this.state.textList){
+					textBox.push(<TextList id={item[0]} onClick={this.onRemove} onadd={this.handleClick}/>);
 				}
     		return <div className="container">
-    				<button className="btn btn-success" onClick={this.handleClick}>Add Button</button>
-    				<div>
-    				<p>{this.state.id}</p>
-    				<p>{inputBox}</p>
-    				</div>
+    				<div className="center ">
+    					<p className="title">孩子王-致力成为中国新家庭信赖的母婴电商平台,奶粉,辅食营养,尿...</p>
+	    				<button className="btn btn-success" onClick={this.handleClick}>Add Button</button>
+	    				<hr />
+	    			</div>
+	    			<div className="component_app"> 
+	    				<p className="control">添加<span className="control_num">{this.state.id}</span>个输入栏</p>
+	    				<p>{inputBox}</p>
+	    			</div>
+	    			
     			</div>
     		      }
     	   

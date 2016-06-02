@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="http://cdn.bootcss.com/react/15.0.2/react.min.js"></script>
+		<script src="http://cdn.bootcss.com/react/0.14.7/react-dom.min.js"></script>
+		<script src="http://cdn.bootcss.com/babel-core/5.8.24/browser.min.js"></script>
+		<script src="http://cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+		<title>520</title>
+		<style type="text/css">
+			.img{
+				width: 410px;
+				height: 540px;
+				float: left;
+			}
+			img{
+				border: 1px solid #FFf;
+			}
+			ul{
+				margin: 0;
+				padding: 0px;
+				width: 405px;
+				height: 540px;
+				border: 1px solid #fff;
+				position: absolute;
+				
+			}
+			li{ border: 1px solid #FF6699;
+				float: left;
+				list-style: none;
+				width: 25px;
+				height: 27px;
+				background-color: #FF6699;
+				opacity: 1;
+			}
+			.clear{
+				clear: both;
+			}
+			#password{
+				margin: 20px auto;
+				width: 500px;
+				height: 150px;
+			}
+			.form{
+				margin: 120px 200px;
+				width: 500px;
+				height: 600px;
+			}
+		</style>
+	</head>
+	<body class="container">
+		
+		<div id="password">	
+		</div> 
+		<div id="form">
+			<div class="img">
+				<img src="img/love.png"/>
+				
+			</div>
+			<ul>
+			</ul>
+		</div>
+		
+		
+		<div class="clear">1314</div>
+		
+		<script type="text/javascript">
+			var li=document.createElement('li');
+var ul=document.getElementsByTagName('ul')[0];
+for(var i=0;i<320;i++){
+	ul.innerHTML+="<li></li>";
+}
+var li_onmouver=document.getElementsByTagName('li');
+var n=li_onmouver.length;
+for(var i=0;i<n;i++){
+	if(i>40&i<208){
+		
+		(function(i){ 
+			
+		li_onmouver[i].onmouseover=function(){ 
+			if(i>150&i<152){
+			 alert("who is she ？ ")
+			 
+			} 
+			if(i>75&i<77){
+			 
+			 prompt("who is he ？ ")
+		}
+		li_onmouver[i].style.visibility="hidden";
+		}
+	})(i);
+	}
+	
+} 
+var ul=document.getElementsByTagName('ul')[0];
+ul.onmouseleave=function(){
+	alert('Today is 5.20,so i have to say that i love you,and you ?')
+}
+		</script>
+		<script type="text/babel">
+			const Mouse=React.createClass({
+				click_me(){
+					 alert('well, just fool you!')
+					 
+				},
+				show(){
+					 $('.img').css('display','block');
+					 $('ul').css('display','block');
+					 
+				},
+				componentDidMount(){
+					$('.img').css('display','none');
+					 $('ul').css('display','none');
+				},
+				Hi(){
+					$('.img').css('display','none');
+					 $('ul').css('display','none');
+				},
+				render(){
+					return <div>
+							<h2 className="pull-center">Well, what a particular Day!</h2>
+							<span className="btn btn-success" onClick={this.Hi}>Hi,Bye</span>
+							<span className="pull-center btn btn-danger" onClick={this.click_me}>Click Me</span>
+							<span className="pull-right btn btn-info" onClick={this.show}>show</span>
+						</div>
+				}
+			})
+			ReactDOM.render(
+			<Mouse />,
+			document.getElementById('password'))
+		</script>
+	</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>	
+		<meta name="" content="" charset="utf-8"/>
+		<script src="http://cdn.bootcss.com/react/15.0.2/react.min.js"></script>
+		<script src="http://cdn.bootcss.com/react/0.14.7/react-dom.min.js"></script>
+		<script src="http://cdn.bootcss.com/babel-core/5.8.24/browser.min.js"></script>
+		<script src="http://cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+		<style type="text/css">
+			.leftsection{
+				float: left;
+				width: 200px;
+				height: 300px;
+				background-color: beige;
+			}
+			.rightsection{
+				float: left;
+				width: 200px;
+				height: 300px;
+				background-color: #ccc;
+				}
+			p{
+				background: #ff6699;
+				text-align: center;
+				line-height: 20px;
+				color: #666;
+				font-size: 20px;
+			
+			}
+		</style>
+		<script type="text/babel">
+			const data=new Map();
+			data.set('id001','郑春华');
+			data.set('id002','孩子王');
+			data.set('id003','南邮电');
+			data.set('id004','玄武区');
+			
+			const DND=React.createClass({
+				getInitialState(){
+					return {
+						dragid:null,
+						rightdata:this.props.data,
+						leftdata:new Map(),
+						
+					}
+				},
+				//从右向左
+				drag(event){
+					this.state.dragid=event.target.id;
+				},
+				drop(event){
+					var value=this.state.rightdata.get(this.state.dragid);
+					this.state.leftdata.set(this.state.dragid,value);
+					this.state.rightdata.delete(this.state.dragid)
+					this.forceUpdate();
+				},
+				
+				//左向右
+				
+				drop2(event){
+					var value=this.state.leftdata.get(this.state.dragid);
+					this.state.rightdata.set(this.state.dragid,value);
+					this.state.leftdata.delete(this.state.dragid);
+					this.forceUpdate();
+				},
+				
+				
+				
+				render(){
+					const rightlist=[];
+					const leftlist=[];
+					for(let item of this.state.rightdata){
+						rightlist.push(<p draggable={true} onDragStart={this.drag} id={item[0]}>{item[1]}</p>)
+					}
+					for(let item of this.state.leftdata){
+						leftlist.push(<p draggable={true} onDragStart={this.drag} id={item[0]}>{item[1]}</p>)
+					}
+					return <div>
+							<div className="leftsection" onDragEnter={e=>e.preventDefault()}
+								 onDrop={this.drop}
+								 onDragOver={e=>e.preventDefault()}>
+												{leftlist}
+							</div>
+							<div className="rightsection" 
+								 onDragEnter={e=>e.preventDefault()}
+								 onDrop={this.drop2}
+								 onDragOver={e=>e.preventDefault()} >
+												{rightlist}
+							</div>
+							
+						</div>
+				}
+				
+				
+			})
+			ReactDOM.render(
+		  			<DND data={data} />,
+					 document.getElementById('add')
+					);
+ 		</script>
+		<script type="text/babel">
+			
+			
+		</script>
+		<div id="add">  <!--InputList组件-->
+		</div>
+		
+	</body>
+</html>
